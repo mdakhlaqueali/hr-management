@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../store/userSlice';
-import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
+import React, { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../store/userSlice";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
 const Admin = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState('male'); // default value
-  const [status, setStatus] = useState('active'); // default value
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("male"); // default value
+  const [status, setStatus] = useState("active"); // default value
   const [showAlert, setShowAlert] = useState(false); // state for showing alert
 
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Admin = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'https://gorest.co.in/public/v2/users',
+        "https://gorest.co.in/public/v2/users",
         {
           name,
           email,
@@ -32,32 +32,36 @@ const Admin = () => {
           },
         }
       );
-      console.log('Employee added:', response.data);
+      console.log("Employee added:", response.data);
       setShowAlert(true); // Show alert on successful submission
       // Reset form fields
-      setName('');
-      setEmail('');
-      setGender('male');
-      setStatus('active');
+      setName("");
+      setEmail("");
+      setGender("male");
+      setStatus("active");
     } catch (error) {
-      console.error('Error adding employee:', error);
+      console.error("Error adding employee:", error);
       if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
-        if (error.response.data && error.response.data[0] && error.response.data[0].message) {
-          console.error('API Error Message:', error.response.data[0].message);
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+        if (
+          error.response.data &&
+          error.response.data[0] &&
+          error.response.data[0].message
+        ) {
+          console.error("API Error Message:", error.response.data[0].message);
         }
       } else if (error.request) {
-        console.error('Request data:', error.request);
+        console.error("Request data:", error.request);
       } else {
-        console.error('Error message:', error.message);
+        console.error("Error message:", error.message);
       }
     }
   };
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -67,14 +71,20 @@ const Admin = () => {
           <h1>Admin Panel</h1>
         </Col>
         <Col className="text-end">
-          <Button variant="secondary" onClick={handleLogout}>Go to Login</Button>
+          <Button variant="secondary" onClick={handleLogout}>
+            Go to Login
+          </Button>
         </Col>
       </Row>
 
       {showAlert && (
         <Row className="mb-3">
           <Col>
-            <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+            <Alert
+              variant="success"
+              onClose={() => setShowAlert(false)}
+              dismissible
+            >
               Employee added successfully!
             </Alert>
           </Col>
