@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { login, setUsers } from "../store/userSlice";
-
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -51,21 +51,36 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>HR Management System</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      <p>For admin panel just type "admin" in the Email.</p>
-    </div>
-    
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={6}>
+          <Card>
+            <Card.Body>
+              <h1 className="card-title text-center mb-5">
+                HR Management System
+              </h1>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="email">
+                  <Form.Control
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email"
+                    required
+                  />
+                </Form.Group>
+                <Button className="mt-4" type="submit" variant="primary" block>
+                  Login
+                </Button>
+              </Form>
+              <p className="text-center mt-3">
+                For admin panel just type "admin" in the Email.
+              </p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

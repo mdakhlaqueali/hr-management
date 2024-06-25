@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
-  console.log("bus",user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,14 +15,38 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>Name: {user.users.name}</p>
-      <p>Email: {user.users.email}</p>
-      <p>Gender: {user.users.gender}</p>
-      <p>Status: {user.users.status}</p>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={6}>
+          <Card>
+            <Card.Body>
+              <h1 className="card-title text-center mb-4">Profile</h1>
+              <Row className="mb-3">
+                <Col>
+                  <p><strong>Name:</strong> {user.users.name}</p>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col>
+                  <p><strong>Email:</strong> {user.users.email}</p>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col>
+                  <p><strong>Gender:</strong> {user.users.gender}</p>
+                </Col>
+              </Row>
+              <Row className="mb-4">
+                <Col>
+                  <p><strong>Status:</strong> {user.users.status}</p>
+                </Col>
+              </Row>
+            </Card.Body>
+            <Button className='m-auto mb-3' variant="primary" onClick={handleLogout} block>Logout</Button>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
